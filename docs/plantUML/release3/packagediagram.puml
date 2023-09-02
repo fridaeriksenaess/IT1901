@@ -1,0 +1,46 @@
+@startuml
+
+component UI {
+  package periodtracker.ui {
+  }
+}
+
+component CORE {
+  package periodtracker.core {
+  }
+}
+
+
+component REST {
+    package api.rest {
+    }
+}
+
+component STORAGE { 
+    package periodtracker.storage {
+    }
+}
+
+
+[javafx]
+[fxml]
+[Jackson]
+[Springboot]
+
+
+periodtracker.ui .[#red,dashed,thickness=1].> api.rest
+
+
+UI .[#red,dashed,thickness=1].> fxml
+UI .[#red,dashed,thickness=1].> javafx
+
+api.rest .[#red,dashed,thickness=1].> periodtracker.storage 
+api.rest .[#red,dashed,thickness=1].> periodtracker.core
+
+REST .[#red,dashed,thickness=1].> Springboot
+
+periodtracker.storage .[#red,dashed,thickness=1].> periodtracker.core
+
+STORAGE .[#red,dashed,thickness=1].> Jackson
+
+@enduml

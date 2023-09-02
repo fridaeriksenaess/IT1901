@@ -1,0 +1,72 @@
+@startuml 
+
+interface fileHandlingInterface{
++ List<Person> readInformation(String)
++ void writeInformation(String, List<Person>)
+}
+
+class fileHandling{
++ List<Person> readInformation(String)
++ {static} String getFilename()
++ void writeInformation(String, List<Person>)
++ List<Person> readInformation(String)
++ static void main(String[] args)
+}
+
+class periodTrackerController{
+- @FXML TextField nameInput, logInNameField, ageInput;
+- @FXML Button logIn, newUser;
+- @FXML GridPane startPane, createUserPane, logInPane, calendarPane, theCalendar;
+- @FXML Label activeUser;
+- String fileName
+- PersonManager personManager 
+
++ void initialize(URL, ResourceBundle)
+- @FXML void goToLogin()
+- @FXML void goToCreateuser()
+- @FXML void logInPerson()
+- @FXML void createUserButton()
+- @FXML void goBackToFront()
+- boolean validateCreateUser()
+- boolean validateLogInName()
+- void createAlert(String, String, String)
+}
+
+class periodTrackerApp{
++ void start(Stage) throws IOException
++ {static} void main(String[])
+}
+
+class personManager{
+- List<Person> persons 
+- Person activePerson
++ FileHandling fh
+- String fileName
+
++ PersonManager(String)
++ List<Person> getPersons()
++ void setPersons(List<Person>)
+- void savePersons()
++ void addPerson(String, int) 
++ void loggedIn(String)
++ {static} void main(String[])
+}
+
+class person{
+- String name
+- int age
+
++ Person(String, int) 
++ Person()
++ void setName(String) 
++ void setAge(int)
++ int getAge()
+}
+
+fileHandlingInterface <|..fileHandling
+periodTrackerController "1" --> "*" fileHandling
+periodTrackerController "*" --> "1" personManager
+personManager "1" --> "*" person
+periodTrackerApp --> periodTrackerController : uses
+
+@enduml

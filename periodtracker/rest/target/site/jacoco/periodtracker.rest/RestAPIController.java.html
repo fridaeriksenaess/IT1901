@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nb"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RestAPIController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">rest</a> &gt; <a href="index.source.html" class="el_package">periodtracker.rest</a> &gt; <span class="el_source">RestAPIController.java</span></div><h1>RestAPIController.java</h1><pre class="source lang-java linenums">package periodtracker.rest;
+
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.List;
+
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+import periodtracker.core.Person;
+
+/**
+ * Controller class for springboot webserver.
+ */
+
+@RestController
+public class RestAPIController {
+
+  @Autowired
+  private PersonService personService;
+
+  /**
+   * Empty constructor.
+   */
+<span class="fc" id="L31">  public RestAPIController() {</span>
+
+<span class="fc" id="L33">  }</span>
+
+  /**
+   * Constructor that takes in a personManager and a personService.
+   * 
+   * @param personManager
+   * @param personService
+   */
+<span class="nc" id="L41">  public RestAPIController(PersonService personService) {</span>
+<span class="nc" id="L42">    this.personService = new PersonService();</span>
+
+<span class="nc" id="L44">  }</span>
+
+  /**
+  * Method for getting all the persons in the list. 
+  */
+
+  @GetMapping(&quot;/getPersons&quot;)
+  public List&lt;Person&gt; getPersonList() {
+<span class="nc" id="L52">    return this.personService.getPersonList();</span>
+  }
+
+  /**
+   * Method for getting a persons age.
+   * 
+   * @param name
+   * @return the persons age.
+   */
+  @GetMapping(&quot;/getPerson/{name}&quot;)
+  public Person getPerson(@PathVariable(&quot;name&quot;) String name) {
+<span class="fc" id="L63">    return this.personService.getPerson(name);</span>
+  }
+
+  /**
+   * 
+   * Method for adding a new person to the list of persons.
+   * 
+   * @param name
+   * @param int
+   * @return a String based on if added person was successful. 
+   */
+  @PostMapping(value = &quot;/addPerson/{name}/{age}&quot;)
+  @ResponseStatus(code = HttpStatus.CREATED)
+  public String addPerson(@PathVariable String name, @PathVariable int age) {
+<span class="fc" id="L77">    return personService.createPerson(name, age);</span>
+  };
+
+  /**
+   * Method that gets the persons symptom(s).
+   * 
+   * @param name
+   * @return the persons symptom(s).
+   */
+  @GetMapping(&quot;/getSymptoms/{name}&quot;)
+  public HashMap&lt;String, List&lt;String&gt;&gt; getSymptoms(@PathVariable(&quot;name&quot;) String name) {
+<span class="fc" id="L88">    return this.personService.getSymptomsMap(name);</span>
+  }
+
+  /**
+   * Method that adds symptom a person.
+   * This method only adds one symptom at one time.
+   * 
+   * @param name
+   * @param date
+   * @param symptom
+   * @return a String wether or not the symptom has been added.
+   */
+  @PostMapping(value = &quot;/addSymptoms/{name}/{date}/{symptom}&quot;)
+  @ResponseStatus(code = HttpStatus.CREATED)
+  public String addSymptom(@PathVariable String name, @PathVariable String date, @PathVariable String symptom) {
+<span class="fc" id="L103">    return personService.addSymptom(date, symptom, name);</span>
+  }
+
+  /**
+   * Method for removing symptoms from a person.
+   * 
+   * @param date
+   * @param symptom
+   */
+  @DeleteMapping(&quot;/removeSymptom/{name}/{date}/{symptom}&quot;)
+  public void removeSymptom(@PathVariable(&quot;date&quot;) String date, @PathVariable(&quot;symptom&quot;) String symptom) {
+<span class="fc" id="L114">    LocalDate d = LocalDate.parse(date);</span>
+<span class="fc" id="L115">    personService.removeSymptom(d, symptom);</span>
+<span class="fc" id="L116">  }</span>
+
+  /**
+   * Method for getting all the symptoms on the given date for the person.
+   * 
+   * @param name
+   * @param date
+   * @return the given person's symptoms on the given date.
+   */
+  @GetMapping(&quot;/getSymptomsOnDay/{name}/{date}&quot;)
+  public List&lt;String&gt; getSymptomsOnDay(@PathVariable(&quot;name&quot;) String name, @PathVariable String date) {
+<span class="fc" id="L127">    LocalDate d = LocalDate.parse(date);</span>
+<span class="fc" id="L128">    return this.personService.getSymptomsOnDay(d);</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

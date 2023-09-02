@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="457.0" prefWidth="660.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <GridPane fx:id="createUserPane" opacity="1.0" prefHeight="457.0" prefWidth="659.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="369.20448303222656" minWidth="10.0" prefWidth="369.20448303222656" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <TextField fx:id="nameInput" prefHeight="71.0" promptText="Name" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <GridPane.margin>
+                    <Insets bottom="80.0" />
+                </GridPane.margin>
+                </TextField>
+                <TextField fx:id="ageInput" prefHeight="71.0" promptText="Age" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <GridPane.margin>
+                    <Insets top="75.0" />
+                </GridPane.margin></TextField>
+                <Button fx:id="createButton" mnemonicParsing="false" onAction="#createUserButton" prefHeight="50.0" prefWidth="381.0" text="Go!" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                <GridPane.margin>
+                    <Insets top="85.0" />
+                </GridPane.margin>
+                <font>
+                    <Font size="19.0" />
+                </font>
+                </Button>
+                <Label prefHeight="50.0" prefWidth="356.0" text="CREATE USER" textFill="#ba3c66" GridPane.columnIndex="1">
+                <font>
+                    <Font size="47.0" />
+                </font>
+                <GridPane.margin>
+                    <Insets />
+                </GridPane.margin>
+                <padding>
+                    <Insets left="40.0" />
+                </padding>
+                </Label>
+                <Button lineSpacing="10.0" mnemonicParsing="false" onAction="#goBackToFront" prefHeight="48.0" prefWidth="82.0" text="Back" />
+            </children>
+        </GridPane>
+    </children>
+</AnchorPane>

@@ -1,0 +1,41 @@
+@startuml
+
+participant rest
+participant storage
+participant ui
+
+
+ui.RestModel -> rest : GET localhost:8080/getPerson/{name}
+rest -> ui.RestModel : 200 OK
+ui.RestModel -> rest : GET localhost:8080/getSymptomsOnDay/{name, date}
+rest -> ui.RestModel : 200 OK
+ui.RestModel -> rest : GET localhost:8080/getPersons/{}
+rest -> ui.RestModel : 200 OK
+ui.RestModel -> rest : GET localhost:8080/getSymptoms/{name}
+rest -> ui.RestModel : 200 OK
+ui.RestModel -> rest : GET localhost:8080/getSymptomsOnDay/{name}/{date}
+rest -> ui.RestModel : 200 OK
+ui.RestModel -> rest : POST localhost:8080/addPerson/{name}/{age}
+rest -> ui.RestModel : 201 CREATED
+ui.RestModel -> rest : POST localhost:8080/addSymptoms/{name}/{date}/{symptom}
+rest -> ui.RestModel : 201 CREATED
+ui.RestModel -> rest : DELETE localhost:8080/removeSymptoms/{name}/{date}/{symptom}
+
+
+ui.logIncontroller -> ui.logIncontroller : logInPerson(...)
+ui.createUserController -> ui.createUserController : createUserButton(...)
+
+ui.logIncontroller -> ui.calendarController : createCalendar(...)
+ui.createUserController -> ui.calendarController : createCalendar(...)
+ui.calendarController -> storage.PersonManager : updateFile(List<Person> persons)
+
+ui.calendarController -> ui.calendarController : createSymptomsPane(...)
+
+
+storage.PersonManager -> core.CalendarLogic : getDate(...)
+storage.PersonManager -> core.Person : getSymptoms()
+ui.calendarController -> storage.PersonManager : addSymptoms(LocalDate d, String symptom)
+
+
+
+@enduml

@@ -1,0 +1,4 @@
+periodtracker/rest/RestAPIController.class
+module-info.class
+periodtracker/rest/RestApplication.class
+periodtracker/rest/PersonService.class

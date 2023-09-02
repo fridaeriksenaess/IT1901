@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nb"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PersonManager.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">storage</a> &gt; <a href="index.source.html" class="el_package">periodtracker.storage</a> &gt; <span class="el_source">PersonManager.java</span></div><h1>PersonManager.java</h1><pre class="source lang-java linenums">package periodtracker.storage;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import periodtracker.core.Person;
+
+
+/**
+ * PersonManager class that has contains all of the Persons that is stored.
+ */
+public class PersonManager {
+
+  private List&lt;Person&gt; persons;
+<span class="pc" id="L17">  private Person activePerson = new Person();</span>
+<span class="pc" id="L18">  private FileHandling fileHandling = new FileHandling(false);</span>
+  private String fileName;
+
+  /**
+   * Constructor that takes in fileName
+   * If the fileName is test.json, the constructor in FileHandling will be sat to
+   * true.
+   * 
+   * @param fileName
+   */
+<span class="fc" id="L28">  public PersonManager(String fileName) {</span>
+<span class="fc" id="L29">    this.fileName = fileName;</span>
+<span class="pc bpc" id="L30" title="1 of 2 branches missed.">    if (&quot;test.json&quot;.equals(fileName)) {</span>
+<span class="fc" id="L31">      this.fileHandling = new FileHandling(true);</span>
+    }
+<span class="fc" id="L33">    setPersons(fileHandling.readInformation(fileName));</span>
+
+<span class="fc" id="L35">  }</span>
+
+  /**
+   * Empty constructor that is used by PersonService-class to set the fileName to
+   * be.
+   * users.json
+   */
+<span class="nc" id="L42">  public PersonManager() {</span>
+<span class="nc" id="L43">    this.persons = new ArrayList&lt;&gt;(fileHandling.readInformation(fileName));</span>
+
+<span class="nc" id="L45">  }</span>
+
+  /**
+   * Method that updates the file with the new list of persons.
+   * 
+   * @param persons
+   */
+  public void updateFile(List&lt;Person&gt; persons) {
+<span class="pc bpc" id="L53" title="1 of 2 branches missed.">    if (&quot;test.json&quot;.equals(fileName)) {</span>
+<span class="fc" id="L54">      this.fileHandling = new FileHandling(true);</span>
+    }
+<span class="fc" id="L56">    fileHandling.writeInformation(fileName, persons);</span>
+<span class="fc" id="L57">    this.savePersons();</span>
+<span class="fc" id="L58">  }</span>
+
+  /**
+   * A method which returns the person that is logged in.
+   *
+   * @return the person that is active.
+   */
+  public Person getActivePerson() {
+<span class="nc" id="L66">    setActivePerson(activePerson.getName());</span>
+<span class="nc" id="L67">    return this.activePerson; </span>
+
+  }
+  
+  /**
+   * A method which sets an activeperson by logging the person in.
+   *
+   * @param name
+   */
+  public void setActivePerson(String name) {
+<span class="fc bfc" id="L77" title="All 2 branches covered.">    for (Person person : persons) {</span>
+<span class="fc bfc" id="L78" title="All 2 branches covered.">      if (name.equals(person.getName())) {</span>
+<span class="fc" id="L79">        activePerson = person;</span>
+      }
+<span class="fc" id="L81">    }</span>
+<span class="fc" id="L82">  }</span>
+
+  /**
+   * Method for getting the list of persons.
+   * 
+   * @return the list of persons.
+   */
+  public List&lt;Person&gt; getPersons() {
+<span class="fc" id="L90">    return new ArrayList&lt;&gt;(persons);</span>
+  }
+
+  /**
+   * Method for getting the names of all the persons.
+   * 
+   * @return the names of the persons in the list.
+   */
+  public List&lt;String&gt; getNameList() {
+<span class="fc" id="L99">    List&lt;String&gt; personList = new ArrayList&lt;&gt;();</span>
+
+<span class="fc bfc" id="L101" title="All 2 branches covered.">    for (int i = 0; i &lt; persons.size(); i++) {</span>
+<span class="fc" id="L102">      String s = persons.get(i).getName();</span>
+<span class="fc" id="L103">      personList.add(s);</span>
+    }
+<span class="fc" id="L105">    return personList;</span>
+  }
+
+  /**
+   * A method for setting a list of persons.
+   *
+   * @param persons list of persons.
+   */
+  public void setPersons(List&lt;Person&gt; persons) {
+<span class="fc" id="L114">    this.persons = new ArrayList&lt;&gt;(persons);</span>
+<span class="fc" id="L115">  }</span>
+
+  /**
+   * Method for overwriting/save the file.
+   *
+   */
+  private void savePersons() {
+<span class="fc" id="L122">    fileHandling.writeInformation(fileName, persons);</span>
+<span class="fc" id="L123">  }</span>
+
+  /**
+   * Method for adding a person to the list.
+   * Throws exception if the name is already used.
+   * 
+   * @param name
+   * @param age
+   * @param map
+   */
+  public void addPerson(String name, int age, HashMap&lt;String, List&lt;String&gt;&gt; map) {
+<span class="pc bpc" id="L134" title="1 of 2 branches missed.">    if (persons.stream().anyMatch(p -&gt; p.getName().equals(name))) {</span>
+<span class="nc" id="L135">      throw new IllegalArgumentException(&quot;Name is used already&quot;);</span>
+    } else {
+<span class="fc" id="L137">      Person p = new Person(name, age, map);</span>
+<span class="fc" id="L138">      this.persons.add(p);</span>
+      //p.setLoggedIn(true);
+<span class="fc" id="L140">      setActivePerson(p.getName());</span>
+<span class="fc" id="L141">      this.savePersons();</span>
+    }
+<span class="fc" id="L143">  }</span>
+
+  /**
+   * A method for removing a person from the list. This is only indirectly called
+   * on through restapi test.
+   *
+   * @param name
+   * @return a boolean (true if the person was removed, else false).
+   */
+  public boolean removePerson(String name) {
+<span class="nc bnc" id="L153" title="All 2 branches missed.">    for (Person i : persons) {</span>
+<span class="nc bnc" id="L154" title="All 2 branches missed.">      if (i.getName().equals(name)) {</span>
+<span class="nc" id="L155">        persons.remove(i);</span>
+<span class="nc" id="L156">        this.savePersons();</span>
+<span class="nc" id="L157">        return true;</span>
+      }
+<span class="nc" id="L159">    }</span>
+<span class="nc" id="L160">    return false;</span>
+  }
+
+  /**
+   * A method for saving a person.
+   * 
+   * @param person
+   */
+  public void addPerson(Person person) {
+<span class="fc bfc" id="L169" title="All 2 branches covered.">    if (persons.stream().anyMatch(p -&gt; p.getName().equals(person.getName()))) {</span>
+<span class="fc" id="L170">      throw new IllegalArgumentException(&quot;Name is used already&quot;);</span>
+    }
+<span class="fc" id="L172">	  setActivePerson(person.getName());</span>
+<span class="fc" id="L173">    this.persons.add(person);</span>
+<span class="fc" id="L174">    this.savePersons();</span>
+<span class="fc" id="L175">  }</span>
+
+  /**
+   * A method for getting one person in the list.
+   * 
+   * @param name
+   * @return the person if it exist, or else null.
+   */
+  public Person getPerson(String name) {
+<span class="nc bnc" id="L184" title="All 2 branches missed.">    for (Person person : persons) {</span>
+<span class="nc bnc" id="L185" title="All 2 branches missed.">      if (person.getName().equals(name)) {</span>
+<span class="nc" id="L186">        setActivePerson(person.getName());</span>
+<span class="nc" id="L187">        return person;</span>
+      }
+<span class="nc" id="L189">    }</span>
+<span class="nc" id="L190">    return null;</span>
+  }
+
+  /**
+   * Method to get the symptoms on the given date.
+   * 
+   * @param date
+   * @return the symptoms on the given date.
+   */
+  public List&lt;String&gt; getSymptomsOnDay(LocalDate date) {
+<span class="nc" id="L200">    return this.activePerson.getDateSymptom(date);</span>
+  }
+
+  /**
+   * Methods to get a persons symptoms.
+   * 
+   * @return all the symptoms of this activeperson.
+   */
+  public HashMap&lt;String, List&lt;String&gt;&gt; getSymptomsMap() {
+<span class="nc" id="L209">    return new HashMap&lt;&gt;(this.activePerson.getSymptomMap());</span>
+  }
+
+  /**
+   * Method that adds symptom to the list of symptoms.
+   * 
+   * @param date
+   * @param list
+   */
+  public void addSymptomsList(LocalDate date, List&lt;String&gt; list) {
+<span class="nc bnc" id="L219" title="All 2 branches missed.">    for (String symptom : list) {</span>
+<span class="nc" id="L220">      addSymptoms(date, symptom);</span>
+<span class="nc" id="L221">    }</span>
+<span class="nc" id="L222">    this.savePersons();</span>
+<span class="nc" id="L223">  }</span>
+
+  /**
+   * Method that adds symptom to the list of symptoms and also updates file with
+   * this new list.
+   * 
+   * @param date
+   * @param symptom
+   */
+  public void addSymptoms(LocalDate date, String symptom) {
+<span class="nc" id="L233">    activePerson.addSymptoms(date, symptom);</span>
+<span class="nc" id="L234">    this.savePersons();</span>
+<span class="nc" id="L235">    updateFile(persons);</span>
+
+<span class="nc" id="L237">  }</span>
+
+  /**
+   * Method for removing a persons symptoms and also updates file with this new
+   * list.
+   * 
+   * @param date
+   * @param symptom
+   */
+  public void removeSymptoms(LocalDate date, String symptom) {
+<span class="nc" id="L247">    activePerson.removeSymptoms(date, symptom);</span>
+<span class="nc" id="L248">    updateFile(persons);</span>
+<span class="nc" id="L249">  }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

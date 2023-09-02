@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: periodtracker.ui.CalendarControllerTest
+-------------------------------------------------------------------------------
+Tests run: 9, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 19.739 s <<< FAILURE! - in periodtracker.ui.CalendarControllerTest
+periodtracker.ui.CalendarControllerTest.testAddFutureSymptoms  Time elapsed: 0.453 s  <<< ERROR!
+org.testfx.api.FxRobotException: the matcher "Labeled has text "32"" returned no nodes.
+	at periodtracker.ui@0.0.1-SNAPSHOT/periodtracker.ui.CalendarControllerTest.testAddFutureSymptoms(CalendarControllerTest.java:97)
+

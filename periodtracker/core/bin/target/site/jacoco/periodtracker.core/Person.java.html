@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="nb"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Person.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">core</a> &gt; <a href="index.source.html" class="el_package">periodtracker.core</a> &gt; <span class="el_source">Person.java</span></div><h1>Person.java</h1><pre class="source lang-java linenums">package periodtracker.core;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class Person {
+
+    private String name;
+    private int age;
+<span class="pc" id="L14">    private boolean loggedIn = false;</span>
+
+<span class="fc" id="L16">    public static final CalendarLogic cl = new CalendarLogic();</span>
+
+<span class="pc" id="L18">    private List&lt;String&gt; validSymptoms = Arrays.asList(&quot;Small bleedings&quot;, &quot;Cramps&quot;, &quot;Tiredness&quot;, &quot;Headace&quot;,</span>
+            &quot;Intense bleedings&quot;, &quot;Nausia&quot;, &quot;Stress&quot;);
+
+<span class="pc" id="L21">    private HashMap&lt;String, List&lt;String&gt;&gt; symptomMap = new HashMap&lt;String, List&lt;String&gt;&gt;();</span>
+
+    /**
+     * Constructor for Personclass that sets name, age and the persons symptoms
+     * 
+     * @param name
+     * @param age
+     * @param symptomMap
+     */
+<span class="fc" id="L30">    public Person(String name, int age, HashMap&lt;String, List&lt;String&gt;&gt; symptomMap) {</span>
+<span class="fc" id="L31">        setName(name);</span>
+<span class="fc" id="L32">        setAge(age);</span>
+<span class="fc" id="L33">        setSymptomMap(symptomMap);</span>
+<span class="fc" id="L34">    }</span>
+
+    /**
+     * Empty Constructor
+     * TODO finne ut hvor denne blir brukt og hvorfor vi har den
+     * Mvn clean install funker ikke uten
+     */
+<span class="nc" id="L41">    public Person() {</span>
+
+<span class="nc" id="L43">    }</span>
+
+    /**
+     * Sets the persons's name
+     * Validates name and throws if the name is invalid.
+     * 
+     * @param name
+     */
+    public void setName(String name) {
+<span class="pc bpc" id="L52" title="1 of 4 branches missed.">        if (!name.matches(&quot;[a-zA-Z]{2,}&quot;) &amp;&amp; (!name.matches(&quot;[a-zA-Z]{2,}+\s[a-zA-Z]{2,}&quot;))) {</span>
+<span class="fc" id="L53">            throw new IllegalArgumentException(</span>
+                    &quot;The name can only contain letters from the alfabeth A-Z and only contain two names&quot;);
+        }
+<span class="fc" id="L56">        this.name = name;</span>
+<span class="fc" id="L57">    }</span>
+
+    public String getName() {
+<span class="fc" id="L60">        return this.name;</span>
+    }
+
+    /**
+     * Sets the person's age
+     * Validates age and throws if age is under 10 or over 90
+     * 
+     * @param age
+     */
+    public void setAge(int age) {
+<span class="fc bfc" id="L70" title="All 4 branches covered.">        if (age &lt;= 10 || age &gt;= 70) {</span>
+<span class="fc" id="L71">            throw new IllegalArgumentException(&quot;Age must be between 10 and 90!&quot;);</span>
+        }
+<span class="fc" id="L73">        this.age = age;</span>
+<span class="fc" id="L74">    }</span>
+
+    public int getAge() {
+<span class="fc" id="L77">        return this.age;</span>
+    }
+
+    @Override
+    public String toString() {
+<span class="nc bnc" id="L82" title="All 2 branches missed.">        for (Map.Entry&lt;String, List&lt;String&gt;&gt; entry : symptomMap.entrySet()) {</span>
+<span class="nc" id="L83">            LocalDate date = LocalDate.parse(entry.getKey());</span>
+<span class="nc" id="L84">            List&lt;String&gt; sympt = entry.getValue();</span>
+<span class="nc" id="L85">            System.out.println(&quot;Name: &quot; + this.getName() + &quot; \n Age: &quot; + this.getAge() + &quot; \n This is your symptoms at &quot;</span>
+                    + date + &quot;: &quot; + sympt);
+<span class="nc" id="L87">        }</span>
+<span class="nc" id="L88">        return &quot;&quot;;</span>
+    }
+
+    public boolean isLoggedIn() {
+<span class="nc" id="L92">        return loggedIn;</span>
+    }
+
+    public void setLoggedIn(boolean loggedIn) {
+<span class="nc" id="L96">        this.loggedIn = loggedIn;</span>
+<span class="nc" id="L97">    }</span>
+
+    /**
+     * Method for adding symptoms to a person
+     * 
+     * @param choosenDate, the date when the person had the symptoms
+     * @param symptom,     the symptom(s) that the person had at the given date.
+     */
+    public void addSymptoms(LocalDate choosenDate, String symptom) {
+<span class="pc bpc" id="L106" title="2 of 4 branches missed.">        if (choosenDate == null || symptom == null) {</span>
+<span class="nc" id="L107">            return;</span>
+            
+        }
+<span class="fc bfc" id="L110" title="All 2 branches covered.">        if (choosenDate.isAfter(cl.getDate())) {</span>
+<span class="fc" id="L111">            throw new IllegalArgumentException(&quot;You can not add future symptoms&quot;);</span>
+        }
+<span class="fc bfc" id="L113" title="All 2 branches covered.">        if (!validSymptoms.contains(symptom)) {</span>
+<span class="fc" id="L114">            return;</span>
+        }
+<span class="pc bpc" id="L116" title="1 of 2 branches missed.">        if (!symptomMap.keySet().contains(choosenDate.toString())) {</span>
+<span class="fc" id="L117">            List&lt;String&gt; s = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L118">            s.add(symptom);</span>
+<span class="fc" id="L119">            symptomMap.put(choosenDate.toString(), s);</span>
+            
+
+<span class="pc bnc" id="L122" title="All 2 branches missed.">        } else if (!getDateSymptom(choosenDate).contains(symptom)) {</span>
+<span class="nc" id="L123">            symptomMap.get(choosenDate.toString()).add(symptom);</span>
+        }
+<span class="fc" id="L125">    }</span>
+
+    /**
+     * Method for removing symptoms from a person
+     * 
+     * @param date,    the date you want to remove symptoms from
+     * @param symptom, the symptom(s) that the person had at the given date.
+     */
+    public void removeSymptoms(LocalDate date, String symptom) {
+<span class="nc" id="L134">        ArrayList&lt;String&gt; symptomsList = new ArrayList&lt;&gt;(getDateSymptom(date));</span>
+<span class="nc" id="L135">        symptomsList.remove(symptom);</span>
+<span class="nc" id="L136">        symptomMap.put(date.toString(), symptomsList);</span>
+
+<span class="nc" id="L138">    }</span>
+
+    /**
+     * Method for finding the symptom at the given date
+     * 
+     * @param date
+     * @return the symptoms at the given date
+     */
+    public List&lt;String&gt; getDateSymptom(LocalDate date) {
+<span class="pc bpc" id="L147" title="1 of 2 branches missed.">        if (symptomMap.get(date.toString()) == null) {</span>
+<span class="nc" id="L148">            return new ArrayList&lt;&gt;();</span>
+        }
+<span class="fc" id="L150">        return new ArrayList&lt;&gt;(symptomMap.get(date.toString()));</span>
+    }
+
+    public HashMap&lt;String, List&lt;String&gt;&gt; getSymptomMap() {
+<span class="nc" id="L154">        return new HashMap&lt;String, List&lt;String&gt;&gt;(this.symptomMap);</span>
+    }
+
+    /**
+     * Sets the persons symptomMap
+     * 
+     * @param symptomMap
+     */
+    public void setSymptomMap(HashMap&lt;String, List&lt;String&gt;&gt; symptomMap) {
+<span class="fc" id="L163">        this.symptomMap = new HashMap&lt;String, List&lt;String&gt;&gt;(symptomMap);</span>
+<span class="fc" id="L164">    }</span>
+
+    public static void main(String[] args) {
+<span class="nc" id="L167">        CalendarLogic cl = new CalendarLogic();</span>
+
+<span class="nc" id="L169">        List&lt;String&gt; johannasymptom = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L170">        List&lt;String&gt; lisasymp = new ArrayList&lt;&gt;();</span>
+
+<span class="nc" id="L172">        HashMap&lt;String, List&lt;String&gt;&gt; johannaMap = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L173">        HashMap&lt;String, List&lt;String&gt;&gt; lisaMap = new HashMap&lt;&gt;();</span>
+
+<span class="nc" id="L175">        Person p = new Person(&quot;Johanna&quot;, 20, johannaMap);</span>
+<span class="nc" id="L176">        Person x = new Person(&quot;Lisa&quot;, 22, lisaMap);</span>
+
+<span class="nc" id="L178">        johannaMap.put(cl.getDate().toString(), johannasymptom);</span>
+<span class="nc" id="L179">        lisaMap.put(cl.getDate().minusDays(4).toString(), lisasymp);</span>
+
+<span class="nc" id="L181">        x.addSymptoms(cl.getDate().minusDays(4), &quot;Headace&quot;);</span>
+<span class="nc" id="L182">        p.addSymptoms(cl.getDate(), &quot;Tiredness&quot;);</span>
+<span class="nc" id="L183">        p.addSymptoms(cl.getDate(), &quot;Headace&quot;);</span>
+<span class="nc" id="L184">        p.addSymptoms(cl.getDate(), &quot;Jojo&quot;);</span>
+<span class="nc" id="L185">        p.addSymptoms(cl.getDate(), &quot;Tiredness&quot;);</span>
+<span class="nc" id="L186">        p.addSymptoms(cl.getDate().minusDays(1), &quot;Small bleedings&quot;);</span>
+<span class="nc" id="L187">        p.addSymptoms(cl.getDate().minusDays(3), &quot;Cramps&quot;);</span>
+
+<span class="nc" id="L189">        List&lt;Person&gt; persons = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L190">        persons.add(p);</span>
+<span class="nc" id="L191">        persons.add(x);</span>
+
+<span class="nc" id="L193">        System.out.println(persons);</span>
+
+<span class="nc" id="L195">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

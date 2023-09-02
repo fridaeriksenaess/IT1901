@@ -1,0 +1,239 @@
+@startuml classdiagram 
+
+interface fileHandlingInterface{
++ void writeInformation(String, List<Person>)
++ List<Person> readInformation(String)
+}
+
+class fileHandling{
+- final Path filePath
++ FileHandling()
++ FileHandling(boolean)
++ void createDirectory()
++ void createDirectory()
++ void writeInformation(String, List<Person>)
++ List<Person> readInformation(String)
++ {static} void main(String[] args)
+}
+
+class StartController{
+#@FXML  Button logIn, newUser
+#@FXML GridPane startPane
+- String fileName 
+- PersonManager personManager
+- LoginController loginController
+- CreateUserController createUserController
++ LoginController getLoginController()
++ CreateUserController getCreateUserController()
+-@FXML void goToLogin(ActionEvent) throws IOException
+-@FXML void goToCreateuser(ActionEvent) throws IOException
+- void loadView(ActionEvent, FXMLLoader) throws IOException
+- void loadView1(ActionEvent, FXMLLoader) throws IOException
++ void initialize(URL, ResourceBundle)
+}
+
+class LoginController{
+#@FXML TextField logInNameField
+#@FXML GridPane logInPane
+- PersonManager personManager
+-StartController startController
+- CalendarController calendarController
++ void setPersonManager(PersonManager)
++ StartController getStartController()
++ CalendarController getCalendarController()
++@FXML void goBackToFront(ActionEvent) throws IOException
++@FXML void logInPerson(ActionEvent) throws IOException
+# void createAlert(String, String, String)
+# void loadCalendarView(ActionEvent, FXMLLoader) throws IOException
+# void loadStartView(ActionEvent, FXMLLoader) throws IOException
+}
+
+class CreateUserController{
+extends LoginController
+#@FXML TextField nameInput, ageInput
+#@FXML GridPane createUserPane
+- PersonManager personManager
+- StartController startController
+- CalendarController calendarController
++ void setPersonManager(PersonManager)
++ StartController getStartController()
++ CalendarController getCalendarController()
++@FXML void createUserButton(ActionEvent) throws IOException
+# void loadCalendarView(ActionEvent, FXMLLoader) throws IOException
+}
+
+class CalendarController{
+extends LoginController
+#@FXML Button logOut
+#@FXML GridPane calendarPane, theCalendar, symptomsGrid
+#@FXML Label monthShow, activeUser
+- CalendarLogic logic 
+- StartController startController
+- int month 
+- int year 
+- PersonManager personManager
+@Override public void initialize(URL, ResourceBundle)
++ StartController getStartController()
++ CalendarController(PersonManager)
+-@FXML void forward()
+-@FXML void backward()
+-@FXML void logOut(ActionEvent) throws IOException
+#@FXML void createCalendar()
+-@FXML void createSymptomsPane(LocalDate)
+-TitledPane createTitledPane(LocalDate)
+# void loadStartView(ActionEvent, FXMLLoader) throws IOException
+}
+
+
+class PeriodTrackerApp{
++ {static} void supportHeadless()
++ void start(Stage) throws IOException
++ {static} void main(String[])
+}
+
+class PersonManager{
+- List<Person> persons
+- Person activePerson
+- FileHandling fileHandling 
+- String fileName
++PersonManager(String)
++ PersonManager()
++ void updateFile(List<Person>)
++ Person getActivePerson()
++ void setActivePerson(Person)
++ List<Person> getPersons()
++ List<String> getNameList()
++ void setPersons(List<Person>)
++ void savePersons()
++ void addPerson(String, int, HashMap<String, List<String>>)
++ void addPerson(Person)
++ Person getPerson(String, int)
++ Person getP(String)
++ List<String> getSymptomsOnDay(LocalDate)
++HashMap<String, List<String>> getSymptomsMap()
++ void addSymptomsList(LocalDate, List<String>)
++ void addSymptoms(LocalDate, String)
++ void removeSymptoms(LocalDate, String)
++ void loggedIn(String)
++ void logOut(Person)
++ {static} void main(String[])
+}
+
+class Person{
+- String name
+- int age
+- boolean loggedIn
++ {static} final CalendarLogic cl 
++ List<String> validSymptoms
++ HashMap<String, List<String>> symptomMap 
++ Person(String, int, HashMap <String, List<String>>)
++ Person ()
++ void setName(String)
++ String getName()
++ void setAge(int)
++ int getAge()
++ String toString()
++ boolean isLoggedIn()
++ void setLoggedIn(boolean) 
++ void addSymptoms(LocalDate, String)
++ void removeSymptoms(LocalDate, String)
++ List<String> getDateSymptom(LocalDate)
++HashMap<String, List<String>> getSymptomMap()
++ void setSymptomMap(HashMap<String, List<String>>)
++ {static} void main(String[])
+}
+
+class CalendarLogic{
++Calendar calendar 
++int year 
++int day 
++int week
++int month 
++ LocalDate getDate(
++ int getYear()
++ int getWeek(
++ String getDay()
++ int getMonth()
++ Month monthFormatString()
++ {static} void main(String[])
+}
+
+class PersonService{
+- PersonManager personManager
+- List<Person> persons
++ PersonService(List<Person>) 
++ List<Person> createList()
++ List<Person> getPersonList()
++ void savePersons()
++ Person getPerson(String)
++ double getAverageAge()
++ int getAge(String)
++ void createPerson(Person)
++ boolean deletePerson(String)
++ HashMap<String, List<String>> getSymptomsMap(String)
+}
+
+class RestApiController{
+- PersonManager personManager
+@Autowired - PersonService personService
++RestAPIController()
++ RestAPIController(PersonManager, PersonService)
++@GetMapping("/persons") List<Person> getPersonList()
++@GetMapping("/Averageage») double getAverageAge()
++@GetMapping("/age/{name}") int getAge(@PathVariable("name") String)
++@PostMapping("/add")@ResponseStatus(code = HttpStatus.CREATED)String addPerson(@RequestBody Person)
++@DeleteMapping("/delete/{name}") String deletePerson(@PathVariable("name") String)
++@GetMapping("/symptoms/{name}») HashMap<String, List<String>> getSymptoms(@PathVariable("name") String)
+}
+
+class RestApplication{
+implements WebServerFactoryCustomizer<ConfigurableServletWebServerFactory>
+- {static} int portNumber
++ {static} void isTest(boolean) 
++@Override void customize(ConfigurableServletWebServerFactory)
++ {static} void main(String[])
+}
+
+class RestModel{
++ RestModel() 
++ String addPerson(String, int) 
++ Person getPerson(String)
++ List<String> getPersons() 
++ String getSymptoms(String) 
++ String addSymptoms(String, String, String) 
++ String removeSymptoms(String, String, String) 
++ List<String> getSymptomsOnDay(String, String) 
+}
+
+StartController --> RestModel
+LoginController --> RestModel
+CreateUserController --> RestModel
+CalendarController --> RestModel
+RestModel --> Person
+CalendarController --> Person
+
+fileHandlingInterface <|..fileHandling
+
+
+StartController "*" --> "1" LoginController
+StartController "*" --> "1" CreateUserController
+StartController "1" <-- "*"LoginController
+StartController "1" <-- "*" CreateUserController
+
+LoginController "*" --> "1" CalendarController
+
+CreateUserController "*" --> "1" CalendarController
+
+
+RestApplication --> RestApiController:uses
+RestApiController "*" --> "1" PersonService
+
+PersonService "1" --> "1" PersonManager
+
+
+Person "1" --> "1" CalendarLogic 
+PersonManager "1" --> "*" Person
+PersonManager "1" --> "*" fileHandling
+PeriodTrackerApp --> StartController :uses
+
+@enduml
