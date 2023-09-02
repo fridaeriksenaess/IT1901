@@ -26,9 +26,10 @@ In the start of the project, we were not the best with git. As we learned more a
 ## HOW WE IMAGINE THE USER INTERFACE TO BE WITH A FINISHED APP
 
 This is how we imagine the startpage to our finished product will look.
-![Startpage-sketch](/docs/images/StartPageSketch.jpeg)
+![Startpage-sketch](/group14/docs/images/StartPageSketch.jpeg)
+
 
 
 This is how we imagine the app will look when you have added symptoms.
-![Calendar-sketch](/docs/images/CalendarSketch.jpeg)
+![Calendar-sketch](/group14/docs/images/CalendarSketch.jpeg)
 

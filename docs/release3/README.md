@@ -35,18 +35,18 @@ mvn jpackage:jpackage -f ./fxui/pom.xml
 - You start the app and you get two choices:
     - "Log in"
     - "New user"
-    ![Start-Page](/docs/images/StartPage.png)
+    ![Start-Page](/group14/docs/images/StartPage.png)
 
 
     - You can log in with an already existing user or create a new user.
 - When you log in, you see a calendar where you can click on different dates. If you have added symptoms on date, it will be marked with a green V.
     
 
-    ![Calendar-Page](/docs/images/Calendar.png)
+    ![Calendar-Page](/group14/docs/images/Calendar.png)
 - You can add symptoms to the day you would like, as long as it is not a future date.
 
 - This is what is looks like when you add symptoms
-    ![AddSymptoms-Page](/docs/images/AddSymptoms.png)
+    ![AddSymptoms-Page](/group14/docs/images/AddSymptoms.png)
 
 
 ## WHAT WE HAVE DONE
@@ -112,7 +112,7 @@ Around two times a week we had a scrum meeting. We did not have daily meetings a
 
 At the start of every week we had a sprint planning where we planned what we wanted to do every day. This was written up in Trello (see picture below). We also created a sprint queue in Trello with issues that had to be done, but were not at the top prioritiy at that moment. This was also created in Trello.  
 
-![TrelloPlan](/docs/images/TrelloPlan.jpeg)
+![TrelloPlan](/group14/docs/images/TrelloPlan.jpeg)
 
 In the sprint meeting, every member told the group what they had done since the last meeting, and what their plans was for the next sprint. Here we had the opportunitie to ask for adivce for certain problems, and if we wished to have any help. The weekly meeting helped every member to be updated on the project as a whole. 
 
