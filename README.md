@@ -17,7 +17,7 @@ cd periodtracker
 
 Start by installing the application:
 ```bash
-mvn clean install
+mvn clean install -Dmaven.test.skip=true  // avoids tests
 ```
 
 Start the springboot webserver
