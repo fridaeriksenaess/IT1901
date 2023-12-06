@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <checkstyle version="9.0">
-<file name="/Users/fridaeriksennaess/Skole/H2022/KodingH22/ITprosjekt/Prosjekt/gr2214/periodtracker/rest/src/main/java/periodtracker/rest/RestApplication.java">
+<file name="/Users/fridaeriksennaess/Prosjekter/Koding/ITP/group14/periodtracker/rest/src/main/java/periodtracker/rest/RestApplication.java">
 <error line="12" severity="warning" message="Line is longer than 100 characters (found 105)." source="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
 <error line="14" column="1" severity="warning" message="Line contains a tab character." source="com.puppycrawl.tools.checkstyle.checks.whitespace.FileTabCharacterCheck"/>
 <error line="14" column="9" severity="warning" message="&apos;member def modifier&apos; has incorrect indentation level 8, expected level should be 2." source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
@@ -30,7 +30,7 @@
 <error line="42" column="1" severity="warning" message="Line contains a tab character." source="com.puppycrawl.tools.checkstyle.checks.whitespace.FileTabCharacterCheck"/>
 <error line="42" column="9" severity="warning" message="&apos;method def rcurly&apos; has incorrect indentation level 8, expected level should be 2." source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
 </file>
-<file name="/Users/fridaeriksennaess/Skole/H2022/KodingH22/ITprosjekt/Prosjekt/gr2214/periodtracker/rest/src/main/java/periodtracker/rest/PersonService.java">
+<file name="/Users/fridaeriksennaess/Prosjekter/Koding/ITP/group14/periodtracker/rest/src/main/java/periodtracker/rest/PersonService.java">
 <error line="4" column="1" severity="warning" message="Wrong lexicographical order for &apos;java.time.LocalDate&apos; import. Should be before &apos;java.util.List&apos;." source="com.puppycrawl.tools.checkstyle.checks.imports.CustomImportOrderCheck"/>
 <error line="5" column="1" severity="warning" message="Wrong lexicographical order for &apos;java.time.format.DateTimeFormatter&apos; import. Should be before &apos;java.util.List&apos;." source="com.puppycrawl.tools.checkstyle.checks.imports.CustomImportOrderCheck"/>
 <error line="6" column="1" severity="warning" message="Wrong lexicographical order for &apos;java.util.ArrayList&apos; import. Should be before &apos;java.util.List&apos;." source="com.puppycrawl.tools.checkstyle.checks.imports.CustomImportOrderCheck"/>
@@ -53,7 +53,7 @@
 <error line="162" severity="warning" message="Javadoc tag &apos;@param&apos; should be preceded with an empty line." source="com.puppycrawl.tools.checkstyle.checks.javadoc.RequireEmptyLineBeforeBlockTagGroupCheck"/>
 <error line="163" severity="warning" message="At-clause should have a non-empty description." source="com.puppycrawl.tools.checkstyle.checks.javadoc.NonEmptyAtclauseDescriptionCheck"/>
 </file>
-<file name="/Users/fridaeriksennaess/Skole/H2022/KodingH22/ITprosjekt/Prosjekt/gr2214/periodtracker/rest/src/main/java/periodtracker/rest/RestAPIController.java">
+<file name="/Users/fridaeriksennaess/Prosjekter/Koding/ITP/group14/periodtracker/rest/src/main/java/periodtracker/rest/RestAPIController.java">
 <error line="7" column="1" severity="warning" message="Extra separation in import group before &apos;org.springframework.web.bind.annotation.RestController&apos;" source="com.puppycrawl.tools.checkstyle.checks.imports.CustomImportOrderCheck"/>
 <error line="8" column="1" severity="warning" message="Wrong lexicographical order for &apos;org.springframework.beans.factory.annotation.Autowired&apos; import. Should be before &apos;org.springframework.web.bind.annotation.RestController&apos;." source="com.puppycrawl.tools.checkstyle.checks.imports.CustomImportOrderCheck"/>
 <error line="9" column="1" severity="warning" message="Wrong lexicographical order for &apos;org.springframework.http.HttpStatus&apos; import. Should be before &apos;org.springframework.web.bind.annotation.RestController&apos;." source="com.puppycrawl.tools.checkstyle.checks.imports.CustomImportOrderCheck"/>

@@ -1,4 +1,0 @@
---patch-module
-periodtracker.core=_
---add-reads
-periodtracker.core=ALL-UNNAMED
